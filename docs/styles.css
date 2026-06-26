@@ -1,17 +1,17 @@
 :root {
-  --bg: #070b16;
-  --bg-2: #0c1226;
-  --card: rgba(20, 28, 52, 0.72);
-  --card-border: rgba(120, 150, 240, 0.16);
-  --text: #eaf0ff;
-  --text-dim: #97a3c4;
-  --glow-gold: #ffd57a;
-  --glow-violet: #8a7bff;
-  --glow-cyan: #54e6ff;
-  --accent-grad: linear-gradient(120deg, #ffd57a 0%, #ff9ad1 38%, #8a7bff 70%, #54e6ff 100%);
-  --official: #ffd57a;
-  --major: #7fd4ff;
-  --known: #a9b4d6;
+  --bg: #050a14;
+  --bg-2: #0a1730;
+  --card: rgba(16, 30, 56, 0.72);
+  --card-border: rgba(120, 190, 255, 0.18);
+  --text: #eaf3ff;
+  --text-dim: #93a6c8;
+  --ice-cyan: #8be9ff;
+  --ice-blue: #4aa8ff;
+  --ice-deep: #2d6cf6;
+  --accent-grad: linear-gradient(120deg, #aef3ff 0%, #6fd0ff 34%, #4a9bff 66%, #2d6cf6 100%);
+  --official: #8be9ff;
+  --major: #6fb6ff;
+  --known: #a3b3d4;
   --unknown: #ff8a8a;
   --radius: 18px;
 }
@@ -23,49 +23,62 @@ html, body { margin: 0; padding: 0; }
 body {
   font-family: -apple-system, "Hiragino Sans", "Noto Sans JP", system-ui, sans-serif;
   color: var(--text);
-  background: radial-gradient(1200px 700px at 70% -10%, #14224d 0%, var(--bg-2) 45%, var(--bg) 100%);
+  background: radial-gradient(1200px 720px at 72% -12%, #12305e 0%, var(--bg-2) 46%, var(--bg) 100%);
   min-height: 100vh;
   padding-bottom: env(safe-area-inset-bottom);
   overflow-x: hidden;
 }
 
-/* ---- 背景の星 ---- */
-.starfield {
+/* ---- 背景：氷の結晶（フロスト） ---- */
+.icefield {
   position: fixed; inset: 0; z-index: -1; pointer-events: none;
   background-image:
-    radial-gradient(1.4px 1.4px at 20% 30%, rgba(255,255,255,.9), transparent),
-    radial-gradient(1.2px 1.2px at 75% 20%, rgba(255,255,255,.7), transparent),
-    radial-gradient(1.6px 1.6px at 50% 60%, rgba(255,255,255,.85), transparent),
-    radial-gradient(1px 1px at 85% 70%, rgba(255,255,255,.6), transparent),
-    radial-gradient(1.3px 1.3px at 12% 80%, rgba(255,255,255,.7), transparent),
-    radial-gradient(1.1px 1.1px at 60% 85%, rgba(255,255,255,.55), transparent);
-  opacity: .55;
-  animation: twinkle 6s ease-in-out infinite alternate;
+    /* きらめく氷の粒 */
+    radial-gradient(1.6px 1.6px at 20% 30%, rgba(190,238,255,.95), transparent),
+    radial-gradient(1.3px 1.3px at 75% 18%, rgba(150,210,255,.8), transparent),
+    radial-gradient(1.8px 1.8px at 50% 62%, rgba(210,245,255,.9), transparent),
+    radial-gradient(1.1px 1.1px at 85% 72%, rgba(140,200,255,.7), transparent),
+    radial-gradient(1.4px 1.4px at 12% 80%, rgba(180,230,255,.8), transparent),
+    radial-gradient(1.2px 1.2px at 62% 88%, rgba(160,215,255,.65), transparent),
+    /* 斜めに走るフロストの光 */
+    linear-gradient(125deg, transparent 0%, rgba(120,200,255,.05) 42%, rgba(180,235,255,.10) 50%, rgba(120,200,255,.05) 58%, transparent 100%);
+  opacity: .6;
+  animation: frost 7s ease-in-out infinite alternate;
 }
-@keyframes twinkle { from { opacity: .35; } to { opacity: .7; } }
+@keyframes frost { from { opacity: .4; } to { opacity: .72; } }
 
 /* ---- ヘッダー ---- */
 .app-header {
   position: sticky; top: 0; z-index: 10;
   padding: calc(env(safe-area-inset-top) + 14px) 16px 10px;
-  background: linear-gradient(180deg, rgba(7,11,22,.92) 0%, rgba(7,11,22,.78) 70%, rgba(7,11,22,0) 100%);
+  background: linear-gradient(180deg, rgba(5,10,20,.94) 0%, rgba(5,10,20,.80) 70%, rgba(5,10,20,0) 100%);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
 }
 .header-inner { display: flex; align-items: center; justify-content: space-between; }
 .brand { display: flex; align-items: center; gap: 12px; }
+
+/* ブランドマーク：Da-iCE = サイコロ（ダイス）×氷 */
 .brand-mark {
-  width: 34px; height: 34px; border-radius: 50%;
+  width: 36px; height: 36px; border-radius: 10px;
   background: var(--accent-grad);
-  box-shadow: 0 0 18px rgba(138,123,255,.7), 0 0 36px rgba(84,230,255,.35);
+  box-shadow: 0 0 18px rgba(74,168,255,.65), 0 0 36px rgba(139,233,255,.30),
+              inset 0 1px 2px rgba(255,255,255,.55);
   position: relative;
+  transform: rotate(-8deg);
 }
+/* サイコロの目（5の目）を氷色の地に濃紺で表現 */
 .brand-mark::after {
-  content: "★"; position: absolute; inset: 0;
-  display: grid; place-items: center; font-size: 16px; color: #0a0e1a;
+  content: ""; position: absolute; inset: 0;
+  background-image:
+    radial-gradient(circle 2.4px at 30% 30%, #06142b 99%, transparent 100%),
+    radial-gradient(circle 2.4px at 70% 30%, #06142b 99%, transparent 100%),
+    radial-gradient(circle 2.4px at 50% 50%, #06142b 99%, transparent 100%),
+    radial-gradient(circle 2.4px at 30% 70%, #06142b 99%, transparent 100%),
+    radial-gradient(circle 2.4px at 70% 70%, #06142b 99%, transparent 100%);
 }
 .brand-text h1 {
-  margin: 0; font-size: 20px; letter-spacing: .14em; font-weight: 800;
+  margin: 0; font-size: 20px; letter-spacing: .12em; font-weight: 800;
 }
 .brand-text h1 span {
   background: var(--accent-grad); -webkit-background-clip: text; background-clip: text;
@@ -87,7 +100,7 @@ body {
   padding: 6px 12px; border-radius: 999px;
   border: 1px solid var(--card-border); background: rgba(255,255,255,.04);
 }
-.official-links a:active { background: rgba(138,123,255,.2); }
+.official-links a:active { background: rgba(74,168,255,.22); }
 
 .filters { display: flex; gap: 8px; margin-top: 12px; overflow-x: auto; padding-bottom: 4px; }
 .chip {
@@ -96,9 +109,9 @@ body {
   padding: 7px 14px; border-radius: 999px; cursor: pointer; white-space: nowrap;
 }
 .chip.is-active {
-  color: #0a0e1a; font-weight: 700; border-color: transparent;
+  color: #04101f; font-weight: 700; border-color: transparent;
   background: var(--accent-grad);
-  box-shadow: 0 0 16px rgba(138,123,255,.4);
+  box-shadow: 0 0 16px rgba(74,168,255,.45);
 }
 
 /* ---- フィード ---- */
@@ -111,7 +124,7 @@ body {
   position: relative; overflow: hidden;
   transition: transform .15s ease, border-color .15s ease;
 }
-.card:active { transform: scale(.985); border-color: rgba(138,123,255,.5); }
+.card:active { transform: scale(.985); border-color: rgba(74,168,255,.55); }
 .card::before {
   content: ""; position: absolute; left: 0; top: 0; bottom: 0; width: 3px;
   background: var(--known);
@@ -137,7 +150,7 @@ body {
 
 .card-meta { display: flex; align-items: center; justify-content: space-between; margin-top: 12px; }
 .source { font-size: 12px; color: var(--text-dim); display: flex; align-items: center; gap: 6px; }
-.go { font-size: 12px; color: var(--glow-cyan); font-weight: 700; }
+.go { font-size: 12px; color: var(--ice-cyan); font-weight: 700; }
 
 .cred-bar { height: 4px; border-radius: 4px; background: rgba(255,255,255,.08); margin-top: 10px; overflow: hidden; }
 .cred-fill { height: 100%; border-radius: 4px; background: var(--accent-grad); }
@@ -151,8 +164,8 @@ body {
 .state { text-align: center; color: var(--text-dim); padding: 60px 20px; }
 
 .sample-note {
-  text-align: center; font-size: 12px; color: var(--glow-gold);
-  background: rgba(255,213,122,.08); border: 1px solid rgba(255,213,122,.25);
+  text-align: center; font-size: 12px; color: var(--ice-cyan);
+  background: rgba(139,233,255,.08); border: 1px solid rgba(139,233,255,.25);
   border-radius: 12px; padding: 10px; margin: 0 16px 4px;
 }
 

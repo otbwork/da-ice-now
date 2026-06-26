@@ -1,6 +1,6 @@
 // Da-iCE NOW — Service Worker
 // アプリ本体はキャッシュ優先（オフラインでも起動）、データは常に最新を取りに行く。
-const CACHE = 'da-ice-now-v1';
+const CACHE = 'da-ice-now-v2';
 const SHELL = [
   './',
   './index.html',
