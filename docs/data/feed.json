@@ -1,0 +1,48 @@
+{
+  "artist": "Da-iCE",
+  "updatedAt": "2026-06-26T00:00:00+00:00",
+  "count": 4,
+  "sample": true,
+  "items": [
+    {
+      "type": "youtube",
+      "title": "Da-iCE - 最新ミュージックビデオ",
+      "summary": "Da-iCE OFFICIAL CHANNEL で公開された最新MV。公式チャンネルの動画です。",
+      "url": "https://www.youtube.com/c/DaiCECH",
+      "source": "Da-iCE OFFICIAL CHANNEL",
+      "publishedAt": "2026-06-24T10:00:00+00:00",
+      "id": "sample0001yt",
+      "credibility": { "score": 95, "tier": "official", "tierLabel": "公式", "warning": null }
+    },
+    {
+      "type": "news",
+      "title": "Da-iCE、全国アリーナツアー開催が決定",
+      "summary": "Da-iCE が全国アリーナツアーを発表。チケット情報の詳細は公式サイトにて。",
+      "url": "https://www.oricon.co.jp/",
+      "source": "ORICON NEWS",
+      "publishedAt": "2026-06-23T09:00:00+00:00",
+      "id": "sample0002nw",
+      "credibility": { "score": 84, "tier": "major", "tierLabel": "大手メディア", "warning": null }
+    },
+    {
+      "type": "news",
+      "title": "Da-iCE 新曲リリースが決定、配信スタート",
+      "summary": "各種音楽配信サービスにて新曲の配信を開始。avex より発表。",
+      "url": "https://www.billboard-japan.com/",
+      "source": "Billboard JAPAN",
+      "publishedAt": "2026-06-22T08:00:00+00:00",
+      "id": "sample0003nw",
+      "credibility": { "score": 80, "tier": "major", "tierLabel": "大手メディア", "warning": null }
+    },
+    {
+      "type": "news",
+      "title": "【噂】Da-iCE に関する未確認情報が拡散",
+      "summary": "SNS上で出どころ不明の情報が出回っているという憶測。公式の発表はない。",
+      "url": "https://example.com/rumor",
+      "source": "matomeblog",
+      "publishedAt": "2026-06-21T12:00:00+00:00",
+      "id": "sample0004rm",
+      "credibility": { "score": 15, "tier": "unknown", "tierLabel": "未確認", "warning": "公式・大手による裏取りが取れていない情報です" }
+    }
+  ]
+}
