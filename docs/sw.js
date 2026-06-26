@@ -1,6 +1,7 @@
 // Da-iCE NOW — Service Worker
-// アプリ本体はキャッシュ優先（オフラインでも起動）、データは常に最新を取りに行く。
-const CACHE = 'da-ice-now-v2';
+// HTML とアプリ資産は network-first（更新を確実に反映）、オフライン時はキャッシュへフォールバック。
+// データ(feed.json)も network-first。アイコンなどは cache-first。
+const CACHE = 'da-ice-now-v3';
 const SHELL = [
   './',
   './index.html',
@@ -23,23 +24,29 @@ self.addEventListener('activate', (e) => {
   );
 });
 
-self.addEventListener('fetch', (e) => {
-  const url = new URL(e.request.url);
+// network-first: 取れたらキャッシュ更新して返す。失敗時のみキャッシュ。
+function networkFirst(request) {
+  return fetch(request)
+    .then((res) => {
+      const copy = res.clone();
+      caches.open(CACHE).then((c) => c.put(request, copy)).catch(() => {});
+      return res;
+    })
+    .catch(() => caches.match(request).then((hit) => hit || caches.match('./index.html')));
+}
 
-  // フィードデータは network-first（最新優先、失敗時はキャッシュ）
-  if (url.pathname.endsWith('/data/feed.json') || url.pathname.endsWith('feed.json')) {
-    e.respondWith(
-      fetch(e.request)
-        .then((res) => {
-          const copy = res.clone();
-          caches.open(CACHE).then((c) => c.put(e.request, copy));
-          return res;
-        })
-        .catch(() => caches.match(e.request))
-    );
+self.addEventListener('fetch', (e) => {
+  const req = e.request;
+  if (req.method !== 'GET') return;
+  const url = new URL(req.url);
+
+  // HTML ナビゲーション・データ・本体資産（CSS/JS/manifest）は network-first で常に最新を反映
+  const isAsset = /\.(?:html|css|js|webmanifest|json)$/.test(url.pathname);
+  if (req.mode === 'navigate' || isAsset || url.pathname.endsWith('/')) {
+    e.respondWith(networkFirst(req));
     return;
   }
 
-  // それ以外（アプリ本体）は cache-first
-  e.respondWith(caches.match(e.request).then((hit) => hit || fetch(e.request)));
+  // アイコン等の静的ファイルは cache-first（オフライン起動を優先）
+  e.respondWith(caches.match(req).then((hit) => hit || fetch(req)));
 });
